@@ -1,7 +1,7 @@
 {
   "name": "it122",
   "version": "1.0.0",
-  "description": "node.js repo",
+  "description": "node.js repo autosvae",
   "main": "index.js",
   "directories": {
     "lib": "lib",
