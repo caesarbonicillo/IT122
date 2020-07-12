@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head></head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Express yourself</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/index.css"> <!--Don't use CSS till later leave basic -->
+</head>
+
+<body>
+    <h1>First Node Site</h1>
+    <table>
+        <tr>
+            <th>Movies</th>
+            <tr>Title</tr>
+            <th>Dir</th>
+            <th>Year</th>
+            <th>Oscar Awards</th>
+        </tr>
+        {{#each Films}}
+        <tr class='details-row' onclick="window.location='/detail/?id={{id}}'">
+            <td>{{title}}</td>
+            <td>{{dir}}</td>
+            <td>{{year}}</td>
+            <td>{{oscars}}</td>
+        </tr>
+        {{/each}}
+    </table>
+
+</body>
+
+</html>
