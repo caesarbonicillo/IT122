@@ -12,8 +12,11 @@ exports.getAll = () => {
     return films;
 };
 
-exports.getFilm = id => {
-    return films.find((title) => {
-        return films.title === title;
+exports.getFilm = title => { //getFilm grabs the object. Whole thing title, dir, year
+    return films.find((film) => { //returns object films. 
+        return film.title === title;  // returns title
     });
 }
+
+console.log(this.getFilm('Spotlight'));
+
