@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" /> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+
+    <title>    
+        
+        {{#with details}}
+       Oscar - {{ title }} </title>
+
+        {{/with}}
+    
+
+  </head>
+  <body>
+    <h1> Oscar Films</h1> 
+
+<!-- Value submitted on request url -->
+    <h2>Details of Film with ID of {{id}}:</h2>
+
+<!-- #with built-in helper-->
+
+
+        <ul>
+        {{#with details}}
+        <h3>Title of Piece: {{ title }}</h3>
+            <li>Name of Director: {{ Dir}}</li>
+            <li>Year: {{ Year }}</li>
+            <li>Number of Wins: ${{ Oscars }}</li>
+
+        {{/with}}
+        </ul>
+
+<!-- Link back home -->
+    <p class="home"><a href="../">Take me back home</a></p>

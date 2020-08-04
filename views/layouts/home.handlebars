@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" /> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Oscar Films Home</title>
+ 
+  </head>
+  <body>
+   <h1>Oscar Film Winners</h1> 
+   
+   <!--
+    -#each helper: 
+    loops through each item in art array 
+    creates list item for each piece of art title 
+    each list item links to the details handlebar template
+    query parameter of the art item id
+    -->
+    <ul>
+        {{#each films}}
+            <li><a href= "/detail?id={{id}}">{{title}}</a></li>
+        {{/each}}
+    </ul>
+  </body>
+</html>

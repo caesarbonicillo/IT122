@@ -12,6 +12,15 @@ exports.getAll = () => {
     return films;
 };
 
+exports.getDetail = id => {
+    const filmTitle = films.find(film => film.id === id);
+    if (filmTitle === undefined) {
+        return {"details": false, "msg": `Film "${id}" not found`}
+    } else {
+    return filmTitle;
+    }
+};
+
 exports.getFilm = title => { //getFilm grabs the object. Whole thing title, dir, year
     return films.find((film) => { //returns object films. 
         return film.title === title;  // returns title
