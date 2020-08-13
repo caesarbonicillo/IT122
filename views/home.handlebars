@@ -11,14 +11,14 @@
    
    <!--
     -#each helper: 
-    loops through each item in art array 
-    creates list item for each piece of art title 
+    loops through each item in film
+    creates list item for each piece of film title 
     each list item links to the details handlebar template
-    query parameter of the art item id
+    query parameter of the film item id
     -->
     <ul>
         {{#each films}}
-            <li><a href= "/detail?id={{id}}">{{title}}</a></li>
+            <li><a href= "/detail?title={{title}}">{{title}}</a></li>
         {{/each}}
     </ul>
   </body>

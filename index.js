@@ -1,11 +1,12 @@
 'use strict'
 const express = require("express");
-const bodyParser = require("body-parser")
-const http = require("http");
+const bodyParser = require("body-parser");
 const data = require('./data.js');
 
 const app = express();
+
 let exphbs = require("express-handlebars"); // should be at top of module 
+
 const { title } = require("process");
 
 
@@ -28,10 +29,6 @@ app.use(bodyParser.urlencoded({extended: true})); // parse form submissions if g
 
 // const displayTitle = data.getTitle();
 // Create variable to get data from data.js
-
-app.set('port', process.env.PORT || 3000);
-app.use(express.static(__dirname + '/public')); // set location for static files
-app.use(bodyParser.urlencoded({extended: true})); // parse form submissions
 
 // send static file as response
 app.get('/', (req, res) => {

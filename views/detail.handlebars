@@ -17,17 +17,17 @@
     <h1> Oscar Films</h1> 
 
 <!-- Value submitted on request url -->
-    <h2>Details of Film with ID of {{id}}:</h2>
+    <h2>Details of Film with ID of {{ id }}:</h2> 
 
 <!-- #with built-in helper-->
 
 
         <ul>
         {{#with details}}
-        <h3>Title of Piece: {{ title }}</h3>
-            <li>Name of Director: {{ Dir}}</li>
-            <li>Year: {{ Year }}</li>
-            <li>Number of Wins: ${{ Oscars }}</li>
+        <h3>Title: {{ films.title }}</h3>
+            <li>Name of Director: {{ films.Dir }}</li>
+            <li>Year: {{ films.year }}</li>
+            <li>Number of Wins: {{ films.Oscars }}</li>
 
         {{/with}}
         </ul>
