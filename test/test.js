@@ -1,5 +1,4 @@
 const expect = require("chai").expect;
-const dogs = require("../data");
 const data = require("../data");
 
 const displayFilms = data.getAll();
