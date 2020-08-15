@@ -27,18 +27,18 @@ const getFilm = title => { //getFilm grabs the object. Whole thing title, dir, y
     });
 }
 
-const addFilm= (title, Dir, year, Oscars, id) => {
-    if([title, Dir, year, Oscars,].includes(undefined)){
-        return {"added": false, "msg":"please complete all information"};
-        } else {
-            const newFilm={title: title, Dir: Dir, year: year, Oscars: Oscars.};
-            films.push(newFilm);
-            return newFilm;
-    }
-}
+// const addFilm= (title, Dir, year, Oscars, id) => {
+//     if([title, Dir, year, Oscars,].includes(undefined)){
+//         return {"added": false, "msg":"please complete all information"};
+//         } else {
+//             const newFilm={title: title, Dir: Dir, year: year, Oscars: Oscars.};
+//             films.push(newFilm);
+//             return newFilm;
+//     }
+// }
 
 
-console.log(this.getFilm('Spotlight'));
+// console.log(this.getFilm('Spotlight'));
 
 
 

@@ -21,7 +21,7 @@ describe("Film module", () => {
 
     it("Fails to add due to missing params", () => {
         data.addFilm("fake film", "Someone");
-        expect(displayFilms).to.not.include({title: "fake film", "Someone", year: undefined, Oscars: undefined, id: undefined});
+        expect(displayFilms).to.not.include({title: "fake film", Dir: "Someone", year: undefined, Oscars: undefined, id: undefined});
         expect(data.addFilm("fake film", "Someone").msg).to.deep.equal('incomplete info');
     });
 
