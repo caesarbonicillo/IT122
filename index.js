@@ -1,7 +1,9 @@
 'use strict'
 const express = require("express");
 const bodyParser = require("body-parser");
-const data = require('./data.js');
+// const data = require('./data.js'); Removed for Assignment 4 using MongoDB instead of .data.js 
+
+const films = require("./models/films") //Added in assingment 4 to use MONGO DB
 
 const app = express();
 
@@ -13,14 +15,49 @@ const { title } = require("process");
 app.engine('handlebars', exphbs({defaultLayout: false}));
 app.set("view engine", "handlebars");
 
-const displayFilm = data.getAll();
-const displayTitle = data.getFilm();
+// const displayFilm = data.getAll();   Removed Assignment 4
+// const displayTitle = data.getFilm(); Removed Assignment 4
 
 app.set('port', process.env.PORT || 3000);
 app.use(express.static(__dirname + '/public')); // set location for static files public doesn't really show up
 app.use(bodyParser.urlencoded({extended: true})); // parse form submissions if gets form parse it out 
 
-//Starts week one stuff
+//Beginning of Week 4 Mongodb route ----------------------------------------------------------------------
+
+app.get('/', (req, res, next) => { //this path is for home page Assignment 4----
+  return films.find({}).lean()
+    .then((movies) => {
+      res.render('home', { films });
+    })
+    .catch(err => next(err));
+})
+
+app.get ('/detail', (req, res) => { //this path is for the details page Assignment 4 ---
+  const filmTitle = req.query.title;
+  films.findOne({title: filmTitle}).lean()
+
+  .then((films) => {
+    res.render('detail', {title: filmTitle});
+  });
+});
+
+app.get('/delete', (req, res) => { //delete item for Assignment 4 --
+  const filmTitle = rew.query.title;
+  films.findOneAndDelete({title: filmTitle}, (err, movie) => {
+    if (err) {
+      console.log(err);
+    } else if (!film) {
+      console.log(filmTitle + "not found"); 
+      res.send(`${filmTitle} not found`);
+    } else if (film) {
+      console.log(filmTitle + "delete successful"); 
+      res.send(`${filmTitle} delete successful`);
+    }
+
+    });
+    });
+
+
 
 
 // Create variables for http and data/book
@@ -62,14 +99,6 @@ app.use( (req,res) => {
 
 
 //home page needs to show name of a movie, then hot linked to http://localhost:3000/detail?item=[VALUE]
-
-
-
-
-
-
-
-
 
 
 //----------------------Old week one 
