@@ -9,7 +9,7 @@ const app = express();
 
 let exphbs = require("express-handlebars"); // should be at top of module 
 
-const { title } = require("process");
+const { title } = require("process"); //Why is this here again? I don't remember?
 
 
 app.engine('handlebars', exphbs({defaultLayout: false}));
@@ -21,6 +21,67 @@ app.set("view engine", "handlebars");
 app.set('port', process.env.PORT || 3000);
 app.use(express.static(__dirname + '/public')); // set location for static files public doesn't really show up
 app.use(bodyParser.urlencoded({extended: true})); // parse form submissions if gets form parse it out 
+
+//Assignment 5 allow for cors
+app.use('/api', require('cors')()); // set Access-Control-Allow-Origin header for api route
+
+//Assignment 5 REST API all films
+app.get('/api/films', (req, res) => {
+  return films.find({}).lean() 
+    .then((films) => {
+        // res.json sets appropriate status code and response header
+        res.json(filmd);
+    })
+    .catch(err => return res.status(500).send('Error occurred: database error.'));
+});
+
+//Rest API single Film 
+app.get('/api/films/:title', (req, res) => {
+  const filmTitle =req.params.title;
+  films.findOne({title: filmTitle})
+    .then((film) => {
+      if (film === null) {
+        return res.status(400).send(`Error: "$filmTitle}" not found`)
+      } else { 
+        // res.json sets appropriate status code and response header
+        res.json(film)
+      }
+    })
+    .catch(err => {
+       res.status(500).send('Error occurred: database error.', err)
+    );
+});
+
+//Delete Rest API 
+app.delete('/api/films/:title', (req, res) => {
+  const filmTitle =req.params.title;
+  films.findOneAndDelete({title: filmTitle})
+    .then((film) => {
+      if (film === null) {
+        return res.status(400).send(`Error: "$filmTitle}" not found`)
+      } else { 
+        // res.json sets appropriate status code and response header
+        res.json(film)
+      }
+    })
+    .catch(err => {
+       res.status(500).send('Error occurred: database error.', err)
+    );
+});
+
+//Adds or Updates Post 
+app.post('/api/films/:title', (req, res) => {
+  const filmTitle =req.params.title;
+  films.findOneAndUpdate({title: filmTitle}, req.body, {upsert: true, new true})
+    .then((film) => {
+      if (film === null) {
+        res.json(film)
+      }
+    })
+    .catch(err => {
+       res.status(500).send('Error occurred: database error.', err)
+    );
+});
 
 //Beginning of Week 4 Mongodb route ----------------------------------------------------------------------
 
