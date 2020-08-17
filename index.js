@@ -22,6 +22,15 @@ app.set('port', process.env.PORT || 3000);
 app.use(express.static(__dirname + '/public')); // set location for static files public doesn't really show up
 app.use(bodyParser.urlencoded({extended: true})); // parse form submissions if gets form parse it out 
 
+
+//Assignment 6 allow new route combines home/detail page. takes the Films list and turn it into an array
+app.get('/', (req, res, next) => {
+  Film.find((err,films) => {
+    if (err) return next(err);
+    res.render('home', {films: JSON.stringify(films)});
+  });
+});
+
 //Assignment 5 allow for cors
 app.use('/api', require('cors')()); // set Access-Control-Allow-Origin header for api route
 

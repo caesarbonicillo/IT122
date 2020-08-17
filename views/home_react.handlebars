@@ -1,0 +1,65 @@
+<html>
+<head>
+    <title>React App Demo</title>
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <!-- Don't use this in production: -->
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+</head>
+
+<body>
+
+<div id="root"></div>
+<script type="text/babel">
+    // define your sub components here
+
+    const Film = props => {
+        return (
+            <div id ="select"> 
+                <h2> Select a film to learn more about it </h2>
+                    <ul> 
+                    {props.filmArray.map((film){
+                        <li key={film._id}><a href="#" onClick={props.selected}> {film.title}</a></li>
+                    })}
+                    </ul>
+            </div>
+        )
+    };
+
+
+
+    class App extends React.Component{
+      constructor(props){
+          super(props);
+          // Set initial state using data from server application
+          this.state = {
+            films: {{{ films }}},
+            currentItem: { } // current selected item
+          };
+          this.selectItem = this.selectItem.bind(this);
+
+       }
+
+      // handle list item clicked
+      selectItem(event) {
+        // event.target is the HTML item clicked
+        console.log(event.target.innerText);
+      }
+
+      render() {
+        // render app UI elements
+        return (
+          <div id ="display">
+          <h2>Welcome to the my Film Library</h2>
+
+          <Film filmArray={this.state.film} selected={evernt => this.selectItem(event)}/> 
+              
+          </div>
+          );
+      }
+    }
+
+    ReactDOM.render(<App />, document.getElementById('root'));
+</script>
+</body>
+</html>
