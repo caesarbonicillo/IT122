@@ -3,7 +3,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 // const data = require('./data.js'); Removed for Assignment 4 using MongoDB instead of .data.js 
 
-const films = require("./models/films") //Added in assingment 4 to use MONGO DB
+const films = require("./models/films"); //Added in assingment 4 to use MONGO DB
 
 const app = express();
 
@@ -41,7 +41,7 @@ app.get('/api/films', (req, res) => {
         // res.json sets appropriate status code and response header
         res.json(filmd);
     })
-    .catch(err => return res.status(500).send('Error occurred: database error.'));
+    .catch(err => {return res.status(500).send('Error occurred: database error.')});
 });
 
 //Rest API single Film 
@@ -58,7 +58,7 @@ app.get('/api/films/:title', (req, res) => {
     })
     .catch(err => {
        res.status(500).send('Error occurred: database error.', err)
-    );
+    });
 });
 
 //Delete Rest API 
@@ -75,13 +75,13 @@ app.delete('/api/films/:title', (req, res) => {
     })
     .catch(err => {
        res.status(500).send('Error occurred: database error.', err)
-    );
+    });
 });
 
 //Adds or Updates Post 
 app.post('/api/films/:title', (req, res) => {
   const filmTitle =req.params.title;
-  films.findOneAndUpdate({title: filmTitle}, req.body, {upsert: true, new true})
+  films.findOneAndUpdate({title: filmTitle}, req.body, {upsert: true, new: true})
     .then((film) => {
       if (film === null) {
         res.json(film)
@@ -89,7 +89,7 @@ app.post('/api/films/:title', (req, res) => {
     })
     .catch(err => {
        res.status(500).send('Error occurred: database error.', err)
-    );
+    });
 });
 
 //Beginning of Week 4 Mongodb route ----------------------------------------------------------------------
