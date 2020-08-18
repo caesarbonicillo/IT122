@@ -25,7 +25,7 @@ app.use(bodyParser.urlencoded({extended: true})); // parse form submissions if g
 
 //Assignment 6 allow new route combines home/detail page. takes the Films list and turn it into an array
 app.get('/', (req, res, next) => {
-  Film.find((err,films) => {
+  return films.find((err,films) => {
     if (err) return next(err);
     res.render('home', {films: JSON.stringify(films)});
   });

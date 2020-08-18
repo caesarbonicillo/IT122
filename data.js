@@ -1,27 +1,53 @@
 // Create array of 5 objects with 4 attributes each
 let films = [
-    {title: 'Spotlight', Dir: 'Tom McCarthy', year: 2015, Oscars: '2 awards', id: 0},
-    {title: 'Moonlight', Dir: 'Barry Jenkins', year: 2016, Oscars: '3 awards', id: 1},
-    {title: 'Shape of Water', Dir: 'Guillermo del Toro', year: 2017, Oscars: '4 awards', id: 2},
-    {title: 'Green Book', Dir: 'Peter Farelly', year: 2018, Oscars: '3 awards', id: 3},
-    {title: 'Parasite', Dir: 'Bong Joon-hoo', year: 2019, Oscars: '4 awards', id: 4} 
+    {title: 'Spotlight', Dir: 'Tom McCarthy', year: 2015, Oscars: '2 awards'},
+    {title: 'Moonlight', Dir: 'Barry Jenkins', year: 2016, Oscars: '3 awards'},
+    {title: 'Shape of Water', Dir: 'Guillermo del Toro', year: 2017, Oscars: '4 awards'},
+    {title: 'Green Book', Dir: 'Peter Farelly', year: 2018, Oscars: '3 awards'},
+    {title: 'Parasite', Dir: 'Bong Joon-hoo', year: 2019, Oscars: '4 awards',} 
 ];
 
 // an exported getAll method that returns all array items
-const getAll = () => {
+exports.getAll = () => {
     return films;
 };
 
-const getDetail = id => {
-    const filmTitle = films.find(film => film.id === id);
-    if (filmTitle === undefined) {
-        return {"details": false, "msg": `Film "${id}" not found`}
+exports.getDetail = title => {
+    const film = films.find(film => film.title === title);
+    if (film === undefined) {
+        return {"details": false, "msg": `Film "${title}" not found`}
     } else {
-    return filmTitle;
+    return film;
     }
 };
 
-const getFilm = title => { //getFilm grabs the object. Whole thing title, dir, year
+exports.addFilm =(title, Dir, year, Oscars) =>{
+    if ([title, Dir, year, Oscars].includes(undefined)) {
+        return {"added": false, "msg": "more info needed"};
+    } else {
+        const newFilm = {
+            title: title,
+            Dir: Dir,
+            year: year,
+            Oscars: Oscars
+        };
+        films.push(newFilm);
+        return newFilm;
+    }
+};
+
+exports.delFilm = title => {
+    const delFilm = films.findIndex(films => films.title === title);
+    if (delFilm === -1) {
+        return {"deleted": false, "msg": `"${film}" doesn't exist`}
+    } else {
+        films.splice(deleteFilm,1);
+        return{"deleted": true, "msg": `"${title}" removed`}
+    }
+};
+
+
+exports.getFilm = title => { //getFilm grabs the object. Whole thing title, dir, year
     return films.find((film) => { //returns object films. 
         return film.title === title;  // returns title
     });
@@ -42,5 +68,5 @@ const getFilm = title => { //getFilm grabs the object. Whole thing title, dir, y
 
 
 
-module.exports={getAll, getDetail, getFilm}
+module.exports={getAll, getDetail, delFilm, getFilm}
 

@@ -7,7 +7,10 @@ const connectionString = "mongodb+srv://User1:password1234@cluster0-adyau.gcp.mo
 // const ip = process.env.ip || '127.0.0.1';
 // const connectionString = 'mongodb://' +ip+ '/<DB_NAME>';
 
-mongoose.connect(connectionString, { dbName: "cluster0", useNewUrlParser: true }); 
+mongoose.connect(connectionString, { dbName: "cluster0", useNewUrlParser: true, useUnifiedTopology }); 
+
+
+mongoose.set('useFindAndModify', false);
 
 mongoose.connection.on('open', () => {
   console.log('Mongoose connected.');
@@ -20,7 +23,6 @@ const mySchema = mongoose.Schema({
  Dir: String,
  year: Number,
  Oscars: String,
- id: Number
 }); 
 
 module.exports = mongoose.model('Film', mySchema);
