@@ -1,4 +1,3 @@
-'use strict'
 const express = require("express");
 const bodyParser = require("body-parser");
 // const data = require('./data.js'); Removed for Assignment 4 using MongoDB instead of .data.js 
@@ -13,38 +12,43 @@ const { title } = require("process"); //Why is this here again? I don't remember
 
 
 app.engine('handlebars', exphbs({defaultLayout: false}));
+
 app.set("view engine", "handlebars");
 
 // const displayFilm = data.getAll();   Removed Assignment 4
 // const displayTitle = data.getFilm(); Removed Assignment 4
 
 app.set('port', process.env.PORT || 3000);
-app.use(express.static(__dirname + '/public')); // set location for static files public doesn't really show up
-app.use(bodyParser.urlencoded({extended: true})); // parse form submissions if gets form parse it out 
 
+app.use(express.static(__dirname + '/public')); // set location for static files public doesn't really show up
+
+app.use(bodyParser.urlencoded({extended: true})); // parse form submissions if gets form parse it out 
+app.use(bodyParser.json());
+
+//Assignment 5 allow for cors
+app.use('/api', require('cors')()); // set Access-Control-Allow-Origin header for api route
 
 //Assignment 6 allow new route combines home/detail page. takes the Films list and turn it into an array
 app.get('/', (req, res, next) => {
   return films.find((err,films) => {
     if (err) return next(err);
     res.render('home', {films: JSON.stringify(films)});
-  });
+  })
+  .catch(err =>(err));
 });
 
-//Assignment 5 allow for cors
-app.use('/api', require('cors')()); // set Access-Control-Allow-Origin header for api route
 
-//Assignment 5 REST API all films
-app.get('/api/films', (req, res) => {
+//Assignment 5 REST API all films !
+app.get('/api/films', (_req, res) => {
   return films.find({}).lean() 
     .then((films) => {
         // res.json sets appropriate status code and response header
         res.json(filmd);
     })
-    .catch(err => {return res.status(500).send('Error occurred: database error.')});
+    .catch(_err => {return res.status(500).send('Error occurred: database error.')});
 });
 
-//Rest API single Film 
+//Rest API single Film !
 app.get('/api/films/:title', (req, res) => {
   const filmTitle =req.params.title;
   films.findOne({title: filmTitle})
@@ -58,10 +62,10 @@ app.get('/api/films/:title', (req, res) => {
     })
     .catch(err => {
        res.status(500).send('Error occurred: database error.', err)
-    });
-});
+    })
+})
 
-//Delete Rest API 
+//Delete Rest API !
 app.delete('/api/films/:title', (req, res) => {
   const filmTitle =req.params.title;
   films.findOneAndDelete({title: filmTitle})
@@ -94,9 +98,9 @@ app.post('/api/films/:title', (req, res) => {
 
 //Beginning of Week 4 Mongodb route ----------------------------------------------------------------------
 
-app.get('/', (req, res, next) => { //this path is for home page Assignment 4----
+app.get('/', (_req, res, next) => { //this path is for home page Assignment 4----
   return films.find({}).lean()
-    .then((movies) => {
+    .then((films) => {
       res.render('home', { films });
     })
     .catch(err => next(err));
@@ -105,15 +109,14 @@ app.get('/', (req, res, next) => { //this path is for home page Assignment 4----
 app.get ('/detail', (req, res) => { //this path is for the details page Assignment 4 ---
   const filmTitle = req.query.title;
   films.findOne({title: filmTitle}).lean()
-
   .then((films) => {
-    res.render('detail', {title: filmTitle});
+    res.render('detail', {title: filmTitle, details:films});
   });
 });
 
-app.get('/delete', (req, res) => { //delete item for Assignment 4 --
+app.get('/delete', (_req, res) => { //delete item for Assignment 4 --
   const filmTitle = rew.query.title;
-  films.findOneAndDelete({title: filmTitle}, (err, movie) => {
+  films.findOneAndDelete({title: filmTitle}, (err, film) => {
     if (err) {
       console.log(err);
     } else if (!film) {
@@ -123,7 +126,6 @@ app.get('/delete', (req, res) => { //delete item for Assignment 4 --
       console.log(filmTitle + "delete successful"); 
       res.send(`${filmTitle} delete successful`);
     }
-
     });
     });
 
@@ -138,26 +140,27 @@ app.get('/delete', (req, res) => { //delete item for Assignment 4 --
 // Create variable to get data from data.js
 
 // send static file as response
-app.get('/', (req, res) => {
+app.get('/', (_req, res) => {
   res.type('text/html');
   res.sendFile(__dirname + '/'); 
  });
  
+ //a Details handle 
+ app.get('/detail', (req, res) => {
+  const title= parseInt(req.query.title);
+  const details = data.getDetail(title);
+  res.render('detail', {title:title, details: details});
+
+});
  // send plain text response
- app.get('/about', (req, res) => {
+ app.get('/about', (_req, res) => {
   res.type('text/plain');
   res.send('About page Express Style');
  });
 
- //a Details handle 
- app.get('/detail', (req, res) => {
-  const id = parseInt(req.query.id);
-  const details = data.getDetail(id);
-  res.render('detail', {id: id, details: details});
-});
 
  // define 404 handler  ORDER IS IMPORTANT!!!!!!!!!!!!!!!!!!!!! 404 must be the last handler or else everything automatically is a 404 message
-app.use( (req,res) => {
+app.use( (_req,res) => {
   res.type('text/plain'); 
   res.status(404);
   res.send('404 - Not found');

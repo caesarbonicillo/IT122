@@ -1,13 +1,13 @@
 const mongoose = require("mongoose");
 
 // remote db connection settings. For security, connectionString should be in a separate file not committed to git
-const connectionString = "mongodb+srv://User1:password1234@cluster0-adyau.gcp.mongodb.net/films?retryWrites=true&w=majority";
+const connectionString = "mongodb+srv://User1:password1234@cluster0-adyau.gcp.mongodb.net/films?retryWrites=true&w=majority" ;
 
 // local db connection settings 
 // const ip = process.env.ip || '127.0.0.1';
 // const connectionString = 'mongodb://' +ip+ '/<DB_NAME>';
 
-mongoose.connect(connectionString, { dbName: "cluster0", useNewUrlParser: true, useUnifiedTopology }); 
+mongoose.connect(connectionString, { dbName: "films", useNewUrlParser: true, useUnifiedTopology: true }); 
 
 
 mongoose.set('useFindAndModify', false);

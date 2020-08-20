@@ -1,4 +1,4 @@
-const films = require("../models/films.js");
+const films = require("./models/films.js");
 
 // return all records
 

@@ -40,6 +40,14 @@ a:active {
     font-size: 1.5em;
     }
 
+.details {
+        font-size: 1.5em;
+        }
+
+.stats {
+    font-size: 1.5em;
+    }
+
 .home {
     margin: .5em;
     padding-top: 2em;
