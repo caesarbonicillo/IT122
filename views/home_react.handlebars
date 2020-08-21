@@ -74,6 +74,7 @@
 
       handleEdit(event){
         let newFilm = this.state.currentFilm;
+        newFilm[event.target.name] = event.target.value;
         this.setState({currentFilm: newFilm});
       }
 
@@ -121,9 +122,7 @@
       this.setState({currentFilm: {} })
     }
     
-    render() {
-      
-      
+    render() {            
       return (
 
         <div id="display"> 

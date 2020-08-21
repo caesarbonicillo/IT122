@@ -34,17 +34,17 @@ exports.addFilm =(title, Dir, year, Oscars) =>{
         films.push(newFilm);
         return newFilm;
     }
-}
+};
 
 exports.delFilm = title => {
     const delFilm = films.findIndex(films => films.title === title);
     if (delFilm === -1) {
-        return {"deleted": false, "msg": "doesn't exist'}
+        return {"deleted": false, "msg": 'does not exist'}
     } else {
         films.splice(delFilm,1);
         return{"deleted": true, "msg": "removed"}
     }
-}
+};
 
 
 // exports.getFilm = title => { //getFilm grabs the object. Whole thing title, dir, year
@@ -64,9 +64,4 @@ exports.delFilm = title => {
 // }
 
 
-// console.log(this.getFilm('Spotlight'));
-
-
-
-module.exports={getAll, getDetail, delFilm}
-
+// console.log(this.getFilm('Spotlight'))
