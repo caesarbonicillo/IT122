@@ -118,7 +118,7 @@ app.get ('/detail', (req, res) => { //this path is for the details page Assignme
   const filmTitle = req.query.title;
   films.findOne({title: filmTitle}).lean()
   .then((films) => {
-    res.render('detail', {title: film, data: films}); //right here something is messing up because of naming conventions
+    res.render('detail', {title: filmTitle, data: films}); //right here something is messing up because of naming conventions
   });
 });
 

@@ -57,8 +57,8 @@
           this.selectItem = this.selectItem.bind(this);
           this.resetCurrent = this.resetCurrent.bind(this);
           this.handleDelete = this.handleDelete.bind(this);
-          this.handleEdit = this.handleEdit.bind(this);
-          this.handleSave = this.handleSave.bind(this);
+          //this.handleEdit = this.handleEdit.bind(this);
+          //this.handleSave = this.handleSave.bind(this);
 
        }
 
@@ -74,7 +74,7 @@
 
       handleEdit(event){
         let newFilm = this.state.currentFilm;
-        newFilm[event.target.name] = event.target.value;
+        //newFilm[event.target.name] = event.target.value;
         this.setState({currentFilm: newFilm});
       }
 
@@ -92,50 +92,25 @@
           .catch(err => console.log(err))
     }
 
-    handleSave(event) {
-      const newFilmMovie = this.state.currentFilm; //Remember this Const it's not the same as newFilm
-      newFilmMovie[event.target.name] = event.target.value;
-      fetch(`api/films/add` , {
-        method: "POST",
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(newFilmMovie)
-      })
-      //Break push
-      .then((response) => response.json())
-      .((result => { 
-        if (result.upserted) {
-          const newFilm = this.state.currentFilm;
-          newFilm._id = result.upserted._id;
-          const newArrayOfFilms = this.state.film.map(film => {
-            return film;
-          })
-          newArrayOfFilms.push(newFilm);
-          this.setState({film : newArrayOfFilms});
-        }
-        ReactDOM.render(<h2 className="conf">{this.state.currentFilm.title}" added"</h2>, document.getElementById('status'));
-        this.resetCurrent();
-      })
-      .catch((err) => console.log(err))
-    }
-
-    resetCurrent() {
+  resetCurrent() {
       this.setState({currentFilm: {} })
     }
-    
+
     render() {            
       return (
 
-        <div id="display"> 
+        <div id="display" className="wrapper"> 
 
           <h2> Oscar Film List </h2>
           
             <Film filmArray={this.state.film} selected={event => this.selectItem(event)}/>
+
               <FilmDetails 
               current={this.state.currentFilm}
               reset={() => this.resetCurrent()}
               edit={this.handleEdit}
               delete={this.handleDelete}
-              save={this.handleSave}
+              //save={this.handleSave}
           />
 
         </div>
@@ -143,8 +118,6 @@
     }
 
     ReactDOM.render(<App />, document.getElementById('root'));
-
-        <p class="home"><a href="../">Take me back home</a></p>
 
 </script>
 </body>

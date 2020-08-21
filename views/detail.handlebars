@@ -5,31 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <link rel="stylesheet" type="test/css" href="./css/styles.css"/>
 
-    <title>    
-        
-        {{#with details}}
-       Oscar - {{ title }} </title>
-
-        {{/with}}
-    
-
+    <title> Oscar Movies - {{title}} </title>
   </head>
+ 
   <body>
     <h1> Oscar Films</h1> 
 
 <!-- Value submitted on request url -->
     <h2>Details of Film with title of {{ title }}:</h2> 
 
-<!-- #with built-in helper-->
 
 
         <ul>
         {{#with details}}
         <h3>Title: {{ films.title }}</h3>
-            <li>Name of Director: {{ films.Dir }}</li>
-            <li>Year: {{ films.year }}</li>
-            <li>Number of Wins: {{ films.Oscars }}</li>
-
+            <li class="Details"> Name of Director: {{ films.Dir }}
+            <li class="Details"> Year: {{ films.year }}
+            <li class="Details"> Number of Wins: {{ films.Oscars }}
         {{/with}}
         </ul>
 
